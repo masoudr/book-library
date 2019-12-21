@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_elasticsearch_dsl',
+    'django_elasticsearch_dsl_drf',
     'core',
 ]
 
@@ -144,3 +146,14 @@ CELERY_TIMEZONE = 'UTC'
 # setup filebased django email
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR,'log/app-messages')
+
+# setup elasticsearch
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'elasticsearch:9200'
+    },
+}
+
+ELASTICSEARCH_INDEX_NAMES = {
+    'core.documents.book': 'book',
+}

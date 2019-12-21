@@ -9,8 +9,8 @@ app_name = 'core'
 router = DefaultRouter()
 router.register('author', views.AuthorViewSet)
 router.register('book', views.BookViewSet)
-
+router.register('books', views.BookDocumentViewSet, basename='booksearch')
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
 ]
