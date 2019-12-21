@@ -8,28 +8,26 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
-    command: ["bash", "-c", "python manage.py wait_for_db &&
-                             python manage.py wait_for_es &&
-                             python manage.py migrate &&
-                             python manage.py runserver 0.0.0.0:8000
-      "]
+    command: "./start.sh"
     user: root
     environment: 
       - DB_HOST=mysql-db
-      - DB_NAME=app
       - DB_USER=root
       - DB_PASS=supersecretpassword
     depends_on:
-      - db
+      - mysql
       - redis
       - elasticsearch
+      - mongo
 
-  db:
+  mysql:
     image: mysql:5.7
+    restart: always
     ports:
       - "3306:3306"
     volumes:
       - mysql-db:/var/lib/mysql
+
     environment:
       - MYSQL_DATABASE=mysql-db
       - MYSQL_USER=root
@@ -37,8 +35,8 @@ services:
       - MYSQL_ROOT_PASSWORD=supersecretpassword
 
   redis:
-    restart: always
     image: redis:5.0.7
+    restart: always
     ports:
       - "6739:6379"
     volumes:
@@ -46,6 +44,7 @@ services:
 
   elasticsearch:
     image: elasticsearch:6.8.6
+    restart: always
     ports:
       - "9200:9200"
     volumes:
@@ -53,7 +52,21 @@ services:
     environment:
       - cluster.name=docker-cluster
 
+  mongo:
+    image: mongo:3.4-xenial
+    restart: always
+    ports:
+      - "27017-27019:27017-27019"
+    volumes:
+      - mongodbdata:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: mongodb
+      MONGODB_DATA_DIR: /data/db
+      MONDODB_LOG_DIR: /dev/null
+
+
 volumes:
   mysql-db:
   redisdata:
   elasticdata:
+  mongodbdata:

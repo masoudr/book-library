@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_elasticsearch_dsl',
     'django_elasticsearch_dsl_drf',
+    'mongolog',
     'core',
 ]
 
@@ -88,7 +89,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_HOST'),
         'USER': os.environ.get('DB_USER'),
         'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': 'db',
+        'HOST': 'mysql',
         'PORT': 3306,
     }
 }
@@ -145,7 +146,7 @@ CELERY_TIMEZONE = 'UTC'
 
 # setup filebased django email
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR,'log/app-messages')
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'log/app-messages')
 
 # setup elasticsearch
 ELASTICSEARCH_DSL = {
@@ -156,4 +157,28 @@ ELASTICSEARCH_DSL = {
 
 ELASTICSEARCH_INDEX_NAMES = {
     'core.documents.book': 'book',
+}
+
+LOG_PATH = os.path.join(BASE_DIR, 'log/log')
+
+
+LOGGING = {
+    'version': 1,
+    'handlers': {
+        'mongolog': {
+            'level': 'DEBUG',
+            'class': 'mongolog.SimpleMongoLogHandler',
+
+            'connection': 'mongodb://mongo:27017',
+
+            'collection': 'mongolog'
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['mongolog'],
+            'level': 'DEBUG',
+            'propagate': True
+        },
+    },
 }

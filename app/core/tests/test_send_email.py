@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core import mail
 
 from core.models import Author, Book
-from core.tasks import send_mail_to_authors
+from core.tasks import send_mail_to_authors_helper
 
 
 class SendMailCheck(TestCase):
@@ -44,7 +44,7 @@ class SendMailCheck(TestCase):
         }
         self.last_books_count = 5
         self.create_books()
-        send_mail_to_authors()
+        send_mail_to_authors_helper()
 
     def test_send_email(self):
         """Test Send Email to authors"""
