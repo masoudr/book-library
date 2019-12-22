@@ -1,6 +1,0 @@
-docker-compose run app bash -c "celery -A app worker --beat --loglevel=info"
-
-docker-compose run app bash -c "service supervisor start && python manage.py runserver"
-
-# elastic reindexing
-docker-compose.exe run app bash -c "python manage.py search_index --rebuild"

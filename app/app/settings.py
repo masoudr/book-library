@@ -146,7 +146,7 @@ CELERY_TIMEZONE = 'UTC'
 
 # setup filebased django email
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'log/app-messages')
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'log/emails')
 
 # setup elasticsearch
 ELASTICSEARCH_DSL = {
