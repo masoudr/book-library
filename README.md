@@ -29,6 +29,7 @@ This project is a sample app that can be used for other projects.
 
     ```shell
     curl -X GET http://localhost:8000/api/books/?search=SomeBook
+    curl -X GET http://localhost:8000/api/books/?search=AwesomeAuthor
     ```
 
 * Sent mails can be viewed in Django mail file engine:
@@ -47,7 +48,7 @@ This project is a sample app that can be used for other projects.
 
 ## Test
 
-To test project, run:
+To test the project, run:
 
 ```shell
 docker-compose.exe run --rm app bash -c "python manage.py test"
