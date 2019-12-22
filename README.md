@@ -28,8 +28,8 @@ This project is a sample app that can be used for other projects.
 * To search for a book or author with ES:
 
     ```shell
-    curl -X GET http://localhost:8000/api/books/?search=SomeBook
-    curl -X GET http://localhost:8000/api/books/?search=AwesomeAuthor
+    curl -X GET http://127.0.0.1:8000/api/books/?search=SomeBook
+    curl -X GET http://127.0.0.1:8000/api/books/?search=AwesomeAuthor
     ```
 
 * Sent mails can be viewed in Django mail file engine:
